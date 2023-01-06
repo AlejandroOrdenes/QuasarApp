@@ -29,3 +29,8 @@
     color: gray;
 }
 
+.q-focusable, .q-manual-focusable, .q-hoverable{
+    margin: 6px;
+    justify-content: center;
+    display: flex;
+}
