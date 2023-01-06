@@ -54,12 +54,12 @@
       <div class="pContainer">
         <label style="font-weight: bold; margin-right: 5px;">Foto:</label>
         <p v-if="this.imageSrc" style="color: green;">Img guardada</p>
-        <p v-else style="color: gray;">No hay Img</p>
+        <p v-else style="color: gray;">N/A</p>
       </div>
       <div class="pContainer2">
         <label style="font-weight: bold; margin-right: 5px;">Estado:</label>
         <p v-if="this.state" style="color: green;">{{ this.state }}</p>
-        <p v-else style="color: gray;">No hay Estado</p>
+        <p v-else style="color: gray;">N/A</p>
       </div>
     </div>
     <div class="coordsContainer">
