@@ -1,0 +1,31 @@
+/* app global css */
+.pContainer {
+    display: flex;
+    flex-direction: row;
+    text-align: start;
+    width: 50%;
+    max-width: 50%;
+    padding-left: 7%;
+    height: 8vh;
+    color: gray;
+    
+}
+
+.pContainer2 {
+    display: flex;
+    flex-direction: row;
+    text-align: start;
+    max-width: 50%;
+    width: 50%;
+    height: 8vh;
+    color: gray;
+
+}
+
+.coordsContainer {
+    display: flex;
+    flex-direction: row;
+    padding-left: 7%;
+    color: gray;
+}
+
