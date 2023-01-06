@@ -192,6 +192,10 @@ export default {
       this.$axios.post("http://localhost:3003/api/sendData", data).then((response) => {
         console.log(response);
         alert("Datos guardados")
+        this.state = ""
+        this.imageSrc = ""
+        this.text = ""
+        
       }).catch((err) => {
         console.log(err)
         console.log("Error al guardar datos!")
