@@ -3,7 +3,7 @@
     <div>
       <l-map
         v-if="ready"
-        style="height: 300px"
+        style="height: 270px"
         :zoom="zoom"
         :center="center"
         :minZoom="3"
@@ -67,7 +67,11 @@
       <p v-if="this.markerLatLng" style="color: green;">{{ this.markerLatLng }}</p>
       <p v-else style="color: gray;">No hay Ubicación</p>
     </div>
-
+    <div class="coordsContainer">
+      <label style="font-weight: bold; margin-right: 5px;">Fecha:</label>
+      <p v-if="this.date" style="color: green;">{{ this.date }}</p>
+      <p v-else style="color: gray;">No hay Fecha</p>
+    </div>
     <div
       class="q-pa-xs"
       style="    
@@ -101,7 +105,7 @@ import { LMap, LTileLayer, LMarker } from "@vue-leaflet/vue-leaflet";
 import { Geolocation } from "@capacitor/geolocation";
 import { ref } from "vue";
 import { Camera, CameraResultType } from "@capacitor/camera";
-import axios from "src/boot/axios";
+import { date } from 'quasar'
 
 export default {
   name: "IndexPage",
@@ -160,6 +164,8 @@ export default {
       state: "",
       textField: "",
       text: ref(""),
+      timeStamp: "",
+      date: ""
     };
   },
   mounted() {
@@ -179,13 +185,16 @@ export default {
         imgUrl: this.imageSrc,
         coords: this.markerLatLng.toLocaleString(),
         coments: this.text,
+        timeStamp: this.timeStamp
       };
       console.log(data);
 
       this.$axios.post("http://localhost:3003/api/sendData", data).then((response) => {
         console.log(response);
+        alert("Datos guardados")
       }).catch((err) => {
         console.log(err)
+        console.log("Error al guardar datos!")
       })
     },
 
@@ -198,7 +207,7 @@ export default {
       });
       this.imageSrc = image.webPath;
       if (this.imageSrc) {
-        alert("Photo guardada!!");
+        alert("Foto guardada!!");
       } else {
         alert("Error al guardar photo");
       }
@@ -209,12 +218,19 @@ export default {
         enableHighAccuracy: true,
         timeout: 1000,
       });
+
+      const timeStamp = Date.now()
+      const dateDb = date.formatDate(timeStamp, 'YYYY-MM-DDTHH:mm:ss.SSSZ')
+      const formattedString = date.formatDate(timeStamp, 'DD-MM-YYYY')
+
       this.center = [coordinates.coords.latitude, coordinates.coords.longitude];
       this.markerLatLng = [
         coordinates.coords.latitude,
         coordinates.coords.longitude,
       ];
       this.ready = true;
+      this.timeStamp = dateDb
+      this.date = formattedString
     },
   },
 
