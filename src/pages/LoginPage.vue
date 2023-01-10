@@ -28,11 +28,12 @@
 <script>
 import { useQuasar } from "quasar";
 import { ref } from "vue";
+import { useRouter } from 'vue-router'
 
 export default {
     setup() {
         const $q = useQuasar();
-
+        const router = useRouter();
         const user = ref(null);
         const pass = ref(null);
 
@@ -42,9 +43,6 @@ export default {
 
             onSubmit() {
                 if (user.value == null || pass.value == null) {
-
-                    
-
                     $q.notify({
                         color: "red-7",
                         textColor: "white",
@@ -52,7 +50,7 @@ export default {
                         message: "Usuario y/o password incorrecto",
                     });
 
-                    this.$router.push({name:'home'})
+                    
                 } else {
                     $q.notify({
                         color: "green-7",
@@ -60,6 +58,7 @@ export default {
                         icon: "cloud_done",
                         message: "Login correcto",
                     });
+                    router.push('/home')
                 }
             },
 
