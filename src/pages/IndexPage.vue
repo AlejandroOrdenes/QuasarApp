@@ -195,7 +195,7 @@ export default {
         this.state = ""
         this.imageSrc = ""
         this.text = ""
-        
+
       }).catch((err) => {
         console.log(err)
         console.log("Error al guardar datos!")
@@ -213,11 +213,12 @@ export default {
       if (this.imageSrc) {
         alert("Foto guardada!!");
       } else {
-        alert("Error al guardar photo");
+        alert("Error al guardar foto");
       }
     },
 
     async getCurrentPosition() {
+      
       const coordinates = await Geolocation.getCurrentPosition({
         enableHighAccuracy: true,
         timeout: 1000,
