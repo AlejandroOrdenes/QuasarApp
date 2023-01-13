@@ -203,14 +203,24 @@ export default {
         .post("http://localhost:3003/api/sendData", data)
         .then((response) => {
           console.log(response);
-          alert("Datos guardados");
+          this.$q.notify({
+          color: "green-7",
+          textColor: "white",
+          icon: "cloud_done",
+          message: "Datos guardados",
+        });
           this.state = "";
           this.imageSrc = "";
           this.text = "";
         })
         .catch((err) => {
           console.log(err);
-          console.log("Error al guardar datos!");
+          this.$q.notify({
+          color: "red-7",
+          textColor: "white",
+          icon: "warning",
+          message: "Error al guardar datos",
+        });
         });
     },
 
