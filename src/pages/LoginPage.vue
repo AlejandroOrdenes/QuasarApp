@@ -30,7 +30,7 @@
 
       <q-input
         filled
-        type="text"
+        type="password"
         v-model="password"
         label="Password *"
         lazy-rules
@@ -40,15 +40,15 @@
       />
 
       <div style="justify-content: center; display: flex; padding-top: 20px">
-        <q-btn type="submit" label="Ingresar" color="primary" />
+        <q-btn :disable="!password || !email" type="submit" label="Ingresar" color="primary" />
       </div>
     </q-form>
     <div
       class="q-mt-md q-gutter-md"
       style="display: flex; align-items: center; flex-direction: column"
     >
-      <a href="" style="text-decoration: none">Crear cuenta</a>
-      <a href="" style="text-decoration: none">Restablecer contraseña</a>
+      <!-- <a href="" style="text-decoration: none">Crear cuenta</a>
+      <a href="" style="text-decoration: none">Restablecer contraseña</a> -->
     </div>
   </div>
 </template>
@@ -57,6 +57,8 @@
 import { useQuasar } from "quasar";
 import { ref } from "vue";
 import { useRouter } from "vue-router";
+import {useUserStore} from '../stores/auth'
+// import { useUserStore } from "src/stores/auth";
 
 export default {
   data() {
@@ -65,6 +67,7 @@ export default {
       router: useRouter(),
       email: ref(""),
       password: ref(""),
+      store: useUserStore()
       
     };
   },
@@ -75,6 +78,7 @@ export default {
         email: this.email,
         password: this.password,
       };
+
       await this.$axios
         .post("http://localhost:3003/api/login", data)
         .then((response) => {
@@ -85,6 +89,7 @@ export default {
             icon: "cloud_done",
             message: "Login correcto",
           });
+          this.store.userIsAuthorized = true
           this.router.push("/home");
         })
         .catch((err) => {

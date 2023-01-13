@@ -14,6 +14,7 @@
         <q-toolbar-title>
           BoiletApp
         </q-toolbar-title>
+        <q-btn @click="logout" v-if="store.userIsAuthorized">Logout</q-btn>
       </q-toolbar>
     </q-header>
 
@@ -46,6 +47,9 @@
 <script>
 import { defineComponent, ref } from 'vue'
 import EssentialLink from 'components/EssentialLink.vue'
+import {useUserStore} from '../stores/auth'
+import { useRouter } from "vue-router";
+
 
 const linksList = [
   {
@@ -59,18 +63,27 @@ const linksList = [
 export default defineComponent({
   name: 'MainLayout',
 
+
   components: {
     EssentialLink
   },
 
   setup () {
     const leftDrawerOpen = ref(false)
+    const store = useUserStore()
+    const router = useRouter()
 
     return {
+      store,
       essentialLinks: linksList,
       leftDrawerOpen,
       toggleLeftDrawer () {
         leftDrawerOpen.value = !leftDrawerOpen.value
+      },
+
+      logout () {
+        store.userIsAuthorized = false
+        router.push('/')
       }
     }
   }
